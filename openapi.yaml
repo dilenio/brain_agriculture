@@ -1,0 +1,184 @@
+openapi: 3.0.3
+info:
+  title: Brain Agriculture API
+  description: API for managing harvests
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Local server
+paths:
+  /harvests:
+    post:
+      summary: Create a new harvest
+      tags:
+        - harvests
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateHarvestDto'
+      responses:
+        '201':
+          description: Harvest created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Harvest'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      summary: Retrieve all harvests
+      tags:
+        - harvests
+      responses:
+        '200':
+          description: List of harvests
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Harvest'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /harvests/{id}:
+    get:
+      summary: Retrieve a harvest by ID
+      tags:
+        - harvests
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Harvest details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Harvest'
+        '404':
+          description: Harvest not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    patch:
+      summary: Update a harvest
+      tags:
+        - harvests
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateHarvestDto'
+      responses:
+        '200':
+          description: Harvest updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Harvest'
+        '404':
+          description: Harvest not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: Delete a harvest
+      tags:
+        - harvests
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Harvest deleted successfully
+        '404':
+          description: Harvest not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Harvest:
+      type: object
+      properties:
+        id:
+          type: string
+        harvest_name:
+          type: string
+      required:
+        - harvest_name
+    CreateHarvestDto:
+      type: object
+      properties:
+        harvest_name:
+          type: string
+      required:
+        - harvest_name
+    UpdateHarvestDto:
+      type: object
+      properties:
+        harvest_name:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        statusCode:
+          type: number
+        message:
+          type: string
+        error:
+          type: string
+      required:
+        - statusCode
+        - message
+        - error

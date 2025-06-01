@@ -1,6 +1,8 @@
+/.vscode
 /node_modules
 /dist
 /pgdata
+/coverage
 
 package-lock.json
 commit.txt
