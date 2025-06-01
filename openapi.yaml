@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Brain Agriculture API
-  description: API for managing harvests
+  description: API for managing rural producers and their properties.
   version: 1.0.0
 servers:
   - url: http://localhost:3000
@@ -17,7 +17,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateHarvestDto'
+              $ref: '#/components/schemas/CreateHarvest'
       responses:
         '201':
           description: Harvest created successfully
@@ -101,7 +101,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateHarvestDto'
+              $ref: '#/components/schemas/UpdateHarvest'
       responses:
         '200':
           description: Harvest updated successfully
@@ -111,6 +111,12 @@ paths:
                 $ref: '#/components/schemas/Harvest'
         '404':
           description: Harvest not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Bad Request
           content:
             application/json:
               schema:
@@ -146,6 +152,151 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /crops:
+    post:
+      summary: Create a new crop
+      tags:
+        - crops
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCrop'
+      responses:
+        '201':
+          description: Crop created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Crop'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      summary: Retrieve all crops
+      tags:
+        - crops
+      responses:
+        '200':
+          description: List of crops
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Crop'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /crops/{id}:
+    get:
+      summary: Retrieve a crop by ID
+      tags:
+        - crops
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Crop details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Crop'
+        '404':
+          description: Crop not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    patch:
+      summary: Update a crop
+      tags:
+        - crops
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCrop'
+      responses:
+        '200':
+          description: Crop updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Crop'
+        '404':
+          description: Crop not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: Delete a crop
+      tags:
+        - crops
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Crop deleted successfully
+        '404':
+          description: Crop not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
     Harvest:
@@ -156,18 +307,41 @@ components:
         harvest_name:
           type: string
       required:
+        - id
         - harvest_name
-    CreateHarvestDto:
+    CreateHarvest:
       type: object
       properties:
         harvest_name:
           type: string
       required:
         - harvest_name
-    UpdateHarvestDto:
+    UpdateHarvest:
       type: object
       properties:
         harvest_name:
+          type: string
+    Crop:
+      type: object
+      properties:
+        id:
+          type: string
+        crop_name:
+          type: string
+      required:
+        - id
+        - crop_name
+    CreateCrop:
+      type: object
+      properties:
+        crop_name:
+          type: string
+      required:
+        - crop_name
+    UpdateCrop:
+      type: object
+      properties:
+        crop_name:
           type: string
     ErrorResponse:
       type: object

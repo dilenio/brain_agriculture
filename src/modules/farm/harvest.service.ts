@@ -2,8 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Harvest } from './entities/harvest.entity';
-import { CreateHarvestDto } from './dto/create-harvest.dto';
-import { UpdateHarvestDto } from './dto/update-harvest.dto';
+import { CreateHarvestDto } from './dtos/create-harvest.dto';
+import { UpdateHarvestDto } from './dtos/update-harvest.dto';
 
 @Injectable()
 export class HarvestService {

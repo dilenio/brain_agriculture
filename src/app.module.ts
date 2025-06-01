@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { HarvestModule } from './modules/harvest/harvest.module';
+import { FarmModule } from './modules/farm/farm.module';
 
 @Module({
   imports: [
@@ -22,7 +22,7 @@ import { HarvestModule } from './modules/harvest/harvest.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    HarvestModule,
+    FarmModule,
   ],
 })
 export class AppModule {}

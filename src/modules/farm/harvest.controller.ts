@@ -8,8 +8,8 @@ import {
   Delete,
 } from '@nestjs/common';
 import { HarvestService } from './harvest.service';
-import { CreateHarvestDto } from './dto/create-harvest.dto';
-import { UpdateHarvestDto } from './dto/update-harvest.dto';
+import { CreateHarvestDto } from './dtos/create-harvest.dto';
+import { UpdateHarvestDto } from './dtos/update-harvest.dto';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { Harvest } from './entities/harvest.entity';
 import { ApiResponseDecorator } from '../../common/decorators/api-response.decorator';
