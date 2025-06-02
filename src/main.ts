@@ -10,6 +10,10 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.useGlobalFilters(new HttpExceptionFilter());
 
+  console.log('Environment:', process.env.NODE_ENV);
+  console.log('Database URL:', process.env.DATABASE_URL);
+  console.log('Database Public URL:', process.env.DATABASE_PUBLIC_URL);
+
   const config = new DocumentBuilder()
     .setTitle('Brain Agriculture API')
     .setDescription(
