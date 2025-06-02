@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { HarvestService } from '../../src/modules/harvest/harvest.service';
-import { Harvest } from '../../src/modules/harvest/entities/harvest.entity';
+import { HarvestService } from '../../src/modules/farm/harvest.service';
+import { Harvest } from '../../src/modules/farm/entities/harvest.entity';
 import { Repository } from 'typeorm';
 import { NotFoundException } from '@nestjs/common';
 
@@ -70,7 +70,7 @@ describe('HarvestService', () => {
     it('should throw NotFoundException if harvest not found', async () => {
       mockHarvestRepository.findOneBy.mockResolvedValue(null);
       await expect(service.findOne('2')).rejects.toThrow(
-        new NotFoundException('Harvest with ID 2 not found')
+        new NotFoundException('Safra com ID 2 não encontrado')
       );
     });
   });
@@ -91,7 +91,7 @@ describe('HarvestService', () => {
       mockHarvestRepository.findOneBy.mockResolvedValue(null);
       await expect(
         service.update('2', { harvest_name: 'Safra 2026' })
-      ).rejects.toThrow(new NotFoundException('Harvest with ID 2 not found'));
+      ).rejects.toThrow(new NotFoundException('Safra com ID 2 não encontrado'));
     });
   });
 
@@ -105,7 +105,7 @@ describe('HarvestService', () => {
     it('should throw NotFoundException if harvest not found', async () => {
       mockHarvestRepository.delete.mockResolvedValue({ affected: 0 });
       await expect(service.remove('2')).rejects.toThrow(
-        new NotFoundException('Harvest with ID 2 not found')
+        new NotFoundException('Safra com ID 2 não encontrado')
       );
     });
   });
