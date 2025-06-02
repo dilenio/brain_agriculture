@@ -24,7 +24,7 @@ export class HarvestService {
   async findOne(id: string): Promise<Harvest> {
     const harvest = await this.harvestRepository.findOneBy({ id });
     if (!harvest) {
-      throw new NotFoundException(`Harvest with ID ${id} not found`);
+      throw new NotFoundException(`Safra com ID ${id} não encontrado`);
     }
     return harvest;
   }
@@ -41,7 +41,7 @@ export class HarvestService {
   async remove(id: string): Promise<void> {
     const result = await this.harvestRepository.delete(id);
     if (result.affected === 0) {
-      throw new NotFoundException(`Harvest with ID ${id} not found`);
+      throw new NotFoundException(`Safra com ID ${id} não encontrado`);
     }
   }
 }

@@ -39,7 +39,7 @@ export class ProducerService {
 
     const existingProducer = await queryBuilder.getOne();
     if (existingProducer) {
-      throw new BadRequestException('CPF or CNPJ already exists.');
+      throw new BadRequestException('CPF ou CNPJ já cadastrado');
     }
   }
 
@@ -71,7 +71,7 @@ export class ProducerService {
       ],
     });
     if (!producer) {
-      throw new NotFoundException(`Producer with ID ${id} not found`);
+      throw new NotFoundException(`Produtor com o ID ${id} não encontrado`);
     }
     return producer;
   }
@@ -97,7 +97,7 @@ export class ProducerService {
   async delete(id: string): Promise<void> {
     const result = await this.producerRepository.delete(id);
     if (result.affected === 0) {
-      throw new NotFoundException(`Producer with ID ${id} not found`);
+      throw new NotFoundException(`Produtor com o ID ${id} não encontrado`);
     }
   }
 }

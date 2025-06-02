@@ -12,7 +12,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   AreaNotExceedTotalConstraint,
   AreaSumConstraint,
-} from './create-farm.dto';
+} from '../../../common/validators/area.validator';
 
 export class UpdateFarmDto {
   @ApiProperty({ required: false })

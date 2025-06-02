@@ -34,7 +34,9 @@ export class FarmService {
       id: producerId,
     });
     if (!producer) {
-      throw new NotFoundException(`Producer with ID ${producerId} not found`);
+      throw new NotFoundException(
+        `Produtor com o ID ${producerId} não encontrado`
+      );
     }
 
     const farm = this.farmRepository.create({
@@ -62,7 +64,7 @@ export class FarmService {
       relations: ['producer', 'crops_harvests'],
     });
     if (!farm) {
-      throw new NotFoundException(`Farm with ID ${id} not found`);
+      throw new NotFoundException(`Fazenda com o ID ${id} não encontrada`);
     }
     return farm;
   }
@@ -83,17 +85,17 @@ export class FarmService {
 
       if (newArableArea > newTotalFarmArea) {
         throw new BadRequestException(
-          'arable_area must not exceed total_farm_area.'
+          'arable_area não deve exceder a total_farm_area.'
         );
       }
       if (newVegetationArea > newTotalFarmArea) {
         throw new BadRequestException(
-          'vegetation_area must not exceed total_farm_area.'
+          'vegetation_area não deve exceder a total_farm_area.'
         );
       }
       if (newArableArea + newVegetationArea > newTotalFarmArea) {
         throw new BadRequestException(
-          'The sum of arable_area and vegetation_area must not exceed total_farm_area.'
+          'A soma de arable_area e vegetation_area não deve exceder a total_farm_area.'
         );
       }
     }
@@ -104,7 +106,7 @@ export class FarmService {
       });
       if (!producer) {
         throw new NotFoundException(
-          `Producer with ID ${updateFarmDto.producerId} not found`
+          `Produtor com o ID ${updateFarmDto.producerId} não encontrado`
         );
       }
       farm.producer = producer;
@@ -135,7 +137,7 @@ export class FarmService {
   async delete(id: string): Promise<void> {
     const result = await this.farmRepository.delete(id);
     if (result.affected === 0) {
-      throw new NotFoundException(`Farm with ID ${id} not found`);
+      throw new NotFoundException(`Fazenda com o ID ${id} não encontrada`);
     }
   }
 }

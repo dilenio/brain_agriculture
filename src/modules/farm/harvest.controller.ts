@@ -20,35 +20,35 @@ export class HarvestController {
   constructor(private readonly harvestService: HarvestService) {}
 
   @Post()
-  @ApiResponseDecorator('Create a new harvest')
+  @ApiResponseDecorator('Criar uma nova safra')
   @ApiResponse({ status: 201, type: Harvest })
   create(@Body() createHarvestDto: CreateHarvestDto) {
     return this.harvestService.create(createHarvestDto);
   }
 
   @Get()
-  @ApiResponseDecorator('Retrieve all harvests')
+  @ApiResponseDecorator('Listar todas as safras')
   @ApiResponse({ status: 200, type: [Harvest] })
   findAll() {
     return this.harvestService.findAll();
   }
 
   @Get(':id')
-  @ApiResponseDecorator('Retrieve a harvest by ID')
+  @ApiResponseDecorator('Buscar uma safra pelo ID')
   @ApiResponse({ status: 200, type: Harvest })
   findOne(@Param('id') id: string) {
     return this.harvestService.findOne(id);
   }
 
   @Patch(':id')
-  @ApiResponseDecorator('Update a harvest')
+  @ApiResponseDecorator('Atualizar uma safra')
   @ApiResponse({ status: 200, type: Harvest })
   update(@Param('id') id: string, @Body() updateHarvestDto: UpdateHarvestDto) {
     return this.harvestService.update(id, updateHarvestDto);
   }
 
   @Delete(':id')
-  @ApiResponseDecorator('Delete a harvest')
+  @ApiResponseDecorator('Apagar uma safra')
   @ApiResponse({ status: 204 })
   remove(@Param('id') id: string) {
     return this.harvestService.remove(id);

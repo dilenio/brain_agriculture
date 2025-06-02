@@ -20,28 +20,28 @@ export class ProducerController {
   constructor(private readonly producerService: ProducerService) {}
 
   @Post()
-  @ApiResponseDecorator('Create a new producer')
+  @ApiResponseDecorator('Criar um novo produtor')
   @ApiResponse({ status: 201, type: Producer })
   create(@Body() createProducerDto: CreateProducerDto) {
     return this.producerService.create(createProducerDto);
   }
 
   @Get()
-  @ApiResponseDecorator('Retrieve all producers')
+  @ApiResponseDecorator('Listar todos os produtores')
   @ApiResponse({ status: 200, type: [Producer] })
   findAll() {
     return this.producerService.findAll();
   }
 
   @Get(':id')
-  @ApiResponseDecorator('Retrieve a producer by ID')
+  @ApiResponseDecorator('Buscar um produtor por ID')
   @ApiResponse({ status: 200, type: Producer })
   findOne(@Param('id') id: string) {
     return this.producerService.findOne(id);
   }
 
   @Patch(':id')
-  @ApiResponseDecorator('Update a producer')
+  @ApiResponseDecorator('Atualizar um produtor')
   @ApiResponse({ status: 200, type: Producer })
   update(
     @Param('id') id: string,
@@ -51,7 +51,7 @@ export class ProducerController {
   }
 
   @Delete(':id')
-  @ApiResponseDecorator('Delete a producer')
+  @ApiResponseDecorator('Apagar um produtor')
   @ApiResponse({ status: 204 })
   delete(@Param('id') id: string) {
     return this.producerService.delete(id);

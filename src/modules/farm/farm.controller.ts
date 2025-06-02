@@ -20,35 +20,35 @@ export class FarmController {
   constructor(private readonly farmService: FarmService) {}
 
   @Post()
-  @ApiResponseDecorator('Create a new farm')
+  @ApiResponseDecorator('Criar uma nova fazenda')
   @ApiResponse({ status: 201, type: Farm })
   create(@Body() createFarmDto: CreateFarmDto) {
     return this.farmService.create(createFarmDto);
   }
 
   @Get()
-  @ApiResponseDecorator('Retrieve all farms')
+  @ApiResponseDecorator('Listar todas as fazendas')
   @ApiResponse({ status: 200, type: [Farm] })
   findAll() {
     return this.farmService.findAll();
   }
 
   @Get(':id')
-  @ApiResponseDecorator('Retrieve a farm by ID')
+  @ApiResponseDecorator('Buscar uma fazenda por ID')
   @ApiResponse({ status: 200, type: Farm })
   findOne(@Param('id') id: string) {
     return this.farmService.findOne(id);
   }
 
   @Patch(':id')
-  @ApiResponseDecorator('Update a farm')
+  @ApiResponseDecorator('Atualizar uma fazenda')
   @ApiResponse({ status: 200, type: Farm })
   update(@Param('id') id: string, @Body() updateFarmDto: UpdateFarmDto) {
     return this.farmService.update(id, updateFarmDto);
   }
 
   @Delete(':id')
-  @ApiResponseDecorator('Delete a farm')
+  @ApiResponseDecorator('Apagar uma fazenda')
   @ApiResponse({ status: 204 })
   delete(@Param('id') id: string) {
     return this.farmService.delete(id);

@@ -28,19 +28,19 @@ export class FarmCropHarvestService {
 
     const farmFound = await this.farmRepository.findOneBy({ id: farm });
     if (!farmFound) {
-      throw new NotFoundException(`Farm with ID ${farm} not found`);
+      throw new NotFoundException(`Fazenda com o ID ${farm} não encontrada`);
     }
 
     const harvestFound = await this.harvestRepository.findOneBy({
       id: harvest,
     });
     if (!harvestFound) {
-      throw new NotFoundException(`Harvest with ID ${harvest} not found`);
+      throw new NotFoundException(`Safra com ID ${harvest} não encontrada`);
     }
 
     const cropFound = await this.cropRepository.findOneBy({ id: crop });
     if (!cropFound) {
-      throw new NotFoundException(`Crop with ID ${crop} not found`);
+      throw new NotFoundException(`Cultura com ID ${crop} não encontrada`);
     }
 
     const farmCropHarvest = this.farmCropHarvestRepository.create({
@@ -64,7 +64,9 @@ export class FarmCropHarvestService {
       relations: ['farm', 'harvest', 'crop'],
     });
     if (!farmCropHarvest) {
-      throw new NotFoundException(`FarmCropHarvest with ID ${id} not found`);
+      throw new NotFoundException(
+        `Fazenda Safra Cultura com ID ${id} não encontrado`
+      );
     }
     return farmCropHarvest;
   }
@@ -81,7 +83,7 @@ export class FarmCropHarvestService {
       });
       if (!farm) {
         throw new NotFoundException(
-          `Farm with ID ${updateFarmCropHarvestDto.farm} not found`
+          `Fazenda com ID ${updateFarmCropHarvestDto.farm} não encontrada`
         );
       }
       farmCropHarvest.farm = farm;
@@ -93,7 +95,7 @@ export class FarmCropHarvestService {
       });
       if (!harvest) {
         throw new NotFoundException(
-          `Harvest with ID ${updateFarmCropHarvestDto.harvest} not found`
+          `Safra com ID ${updateFarmCropHarvestDto.harvest} não encontrada`
         );
       }
       farmCropHarvest.harvest = harvest;
@@ -105,7 +107,7 @@ export class FarmCropHarvestService {
       });
       if (!crop) {
         throw new NotFoundException(
-          `Crop with ID ${updateFarmCropHarvestDto.crop} not found`
+          `Cultura com ID ${updateFarmCropHarvestDto.crop} não encontrada`
         );
       }
       farmCropHarvest.crop = crop;
@@ -117,7 +119,9 @@ export class FarmCropHarvestService {
   async delete(id: string): Promise<void> {
     const result = await this.farmCropHarvestRepository.delete(id);
     if (result.affected === 0) {
-      throw new NotFoundException(`FarmCropHarvest with ID ${id} not found`);
+      throw new NotFoundException(
+        `Fazenda Safra Cultura com ID ${id} não encontrada`
+      );
     }
   }
 }

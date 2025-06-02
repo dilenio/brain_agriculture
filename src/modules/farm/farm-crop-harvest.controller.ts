@@ -22,28 +22,36 @@ export class FarmCropHarvestController {
   ) {}
 
   @Post()
-  @ApiResponseDecorator('Create a new farm-crop-harvest association')
+  @ApiResponseDecorator(
+    'Criar uma nova associação entre fazenda, cultura e safra'
+  )
   @ApiResponse({ status: 201, type: FarmCropHarvest })
   create(@Body() createFarmCropHarvestDto: CreateFarmCropHarvestDto) {
     return this.farmCropHarvestService.create(createFarmCropHarvestDto);
   }
 
   @Get()
-  @ApiResponseDecorator('Retrieve all farm-crop-harvest associations')
+  @ApiResponseDecorator(
+    'Listar todas as associações entre fazenda, cultura e safra'
+  )
   @ApiResponse({ status: 200, type: [FarmCropHarvest] })
   findAll() {
     return this.farmCropHarvestService.findAll();
   }
 
   @Get(':id')
-  @ApiResponseDecorator('Retrieve a farm-crop-harvest association by ID')
+  @ApiResponseDecorator(
+    'Buscar uma associação entre fazenda, cultura e safra pelo ID'
+  )
   @ApiResponse({ status: 200, type: FarmCropHarvest })
   findOne(@Param('id') id: string) {
     return this.farmCropHarvestService.findOne(id);
   }
 
   @Patch(':id')
-  @ApiResponseDecorator('Update a farm-crop-harvest association')
+  @ApiResponseDecorator(
+    'Atualizar uma associação entre fazenda, cultura e safra'
+  )
   @ApiResponse({ status: 200, type: FarmCropHarvest })
   update(
     @Param('id') id: string,
@@ -53,7 +61,7 @@ export class FarmCropHarvestController {
   }
 
   @Delete(':id')
-  @ApiResponseDecorator('Delete a farm-crop-harvest association')
+  @ApiResponseDecorator('Apagar uma associação entre fazenda, cultura e safra ')
   @ApiResponse({ status: 204 })
   delete(@Param('id') id: string) {
     return this.farmCropHarvestService.delete(id);

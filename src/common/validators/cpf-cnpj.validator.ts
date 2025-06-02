@@ -6,8 +6,8 @@ import {
 
 @ValidatorConstraint({ name: 'CpfCnpj', async: false })
 export class CpfCnpjConstraint implements ValidatorConstraintInterface {
-  validate(value: string): boolean {
-    if (!value) return false;
+  validate(value: any): boolean {
+    if (!value || typeof value !== 'string') return false;
 
     const cleanValue = value.replace(/[^\d]/g, '');
 
@@ -72,6 +72,6 @@ export class CpfCnpjConstraint implements ValidatorConstraintInterface {
   }
 
   defaultMessage(args: ValidationArguments): string {
-    return `${args.property} must be a valid Brazilian CPF or CNPJ.`;
+    return `${args.property} deve ser um CPF ou CNPJ válido`;
   }
 }

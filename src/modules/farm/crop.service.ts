@@ -24,7 +24,7 @@ export class CropService {
   async findOne(id: string): Promise<Crop> {
     const crop = await this.cropRepository.findOneBy({ id });
     if (!crop) {
-      throw new NotFoundException(`Crop with ID ${id} not found`);
+      throw new NotFoundException(`Cultura com o ID ${id} não encontrada`);
     }
     return crop;
   }
@@ -38,7 +38,7 @@ export class CropService {
   async remove(id: string): Promise<void> {
     const result = await this.cropRepository.delete(id);
     if (result.affected === 0) {
-      throw new NotFoundException(`Crop with ID ${id} not found`);
+      throw new NotFoundException(`Cultura com o ID ${id} não encontrada`);
     }
   }
 }

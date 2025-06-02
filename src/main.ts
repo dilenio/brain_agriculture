@@ -13,7 +13,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Brain Agriculture API')
     .setDescription(
-      'API for managing producers, farms, harvests, crops, and their associations'
+      'API para gerenciamento de produtores, fazendas, safras e culturas'
     )
     .setVersion('1.0.0')
     .build();
