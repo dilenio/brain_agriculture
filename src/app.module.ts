@@ -9,7 +9,7 @@ import { DashboardModule } from './modules/farm/dashboard.module';
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      url: process.env.DATABASE_URL || process.env.DATABASE_PUBLIC_URL,
+      url: 'postgresql://postgres:SlEjIxEGOibRIosXhMQRGtPUEFOtnoOV@postgres.railway.internal:5432/railway',
       autoLoadEntities: true,
       // synchronize: true, // Disable in production
     }),
