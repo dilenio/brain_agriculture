@@ -7,21 +7,11 @@ import { DashboardModule } from './modules/farm/dashboard.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    // TypeOrmModule.forRoot({
-    //   type: 'postgres',
-    //   url: process.env.DATABASE_URL,
-    //   autoLoadEntities: true,
-    //   synchronize: true, // Disable in production
-    // }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'user',
-      password: 'password',
-      database: 'brain_agriculture',
+      url: process.env.DATABASE_URL,
       autoLoadEntities: true,
-      synchronize: true,
+      // synchronize: true, // Disable in production
     }),
     FarmModule,
     DashboardModule,
