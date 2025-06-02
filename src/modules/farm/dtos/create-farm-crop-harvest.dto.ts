@@ -5,15 +5,15 @@ export class CreateFarmCropHarvestDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  farm_id!: string;
+  farm!: string;
 
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  harvest_id!: string;
+  harvest!: string;
 
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  crop_id!: string;
+  crop!: string;
 }

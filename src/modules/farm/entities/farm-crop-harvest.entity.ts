@@ -10,7 +10,9 @@ export class FarmCropHarvest {
   @ApiProperty()
   id!: string;
 
-  @ManyToOne(() => Farm, (farm) => farm.crops_harvests, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Farm, (farm) => farm.crops_harvests, {
+    onDelete: 'CASCADE',
+  })
   @ApiProperty({ type: () => Farm })
   farm!: Farm;
 

@@ -1,12 +1,157 @@
 openapi: 3.0.3
 info:
   title: Brain Agriculture API
-  description: API for managing rural producers and their properties.
+  description: API for managing producers, farms, harvests, crops, and their associations
   version: 1.0.0
 servers:
   - url: http://localhost:3000
     description: Local server
 paths:
+  /producers:
+    post:
+      summary: Create a new producer
+      tags:
+        - producers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProducer'
+      responses:
+        '201':
+          description: Producer created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Producer'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      summary: Retrieve all producers
+      tags:
+        - producers
+      responses:
+        '200':
+          description: List of producers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Producer'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /producers/{id}:
+    get:
+      summary: Retrieve a producer by ID
+      tags:
+        - producers
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Producer details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Producer'
+        '404':
+          description: Producer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    patch:
+      summary: Update a producer
+      tags:
+        - producers
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProducer'
+      responses:
+        '200':
+          description: Producer updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Producer'
+        '404':
+          description: Producer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: Delete a producer
+      tags:
+        - producers
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Producer deleted successfully
+        '404':
+          description: Producer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /harvests:
     post:
       summary: Create a new harvest
@@ -297,8 +442,350 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /farms:
+    post:
+      summary: Create a new farm
+      tags:
+        - farms
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFarm'
+      responses:
+        '201':
+          description: Farm created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Farm'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Producer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      summary: Retrieve all farms
+      tags:
+        - farms
+      responses:
+        '200':
+          description: List of farms
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Farm'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /farms/{id}:
+    get:
+      summary: Retrieve a farm by ID
+      tags:
+        - farms
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Farm details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Farm'
+        '404':
+          description: Farm not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    patch:
+      summary: Update a farm
+      tags:
+        - farms
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFarm'
+      responses:
+        '200':
+          description: Farm updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Farm'
+        '404':
+          description: Farm or producer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: Delete a farm
+      tags:
+        - farms
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Farm deleted successfully
+        '404':
+          description: Farm not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /farm-crop-harvests:
+    post:
+      summary: Create a new farm-crop-harvest association
+      tags:
+        - farm-crop-harvests
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFarmCropHarvest'
+      responses:
+        '201':
+          description: Association created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FarmCropHarvest'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Farm, harvest, or crop not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      summary: Retrieve all farm-crop-harvest associations
+      tags:
+        - farm-crop-harvests
+      responses:
+        '200':
+          description: List of associations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FarmCropHarvest'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /farm-crop-harvests/{id}:
+    get:
+      summary: Retrieve a farm-crop-harvest association by ID
+      tags:
+        - farm-crop-harvests
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Association details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FarmCropHarvest'
+        '404':
+          description: Association not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    patch:
+      summary: Update a farm-crop-harvest association
+      tags:
+        - farm-crop-harvests
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFarmCropHarvest'
+      responses:
+        '200':
+          description: Association updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FarmCropHarvest'
+        '404':
+          description: Association or related entity not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: Delete a farm-crop-harvest association
+      tags:
+        - farm-crop-harvests
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Association deleted successfully
+        '404':
+          description: Association not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    Producer:
+      type: object
+      properties:
+        id:
+          type: string
+        producer_name:
+          type: string
+        cpf_cnpj:
+          type: string
+          example: '123.456.789-09 or 12.345.678/0001-95'
+          description: A valid Brazilian CPF (11 digits) or CNPJ (14 digits), with or without formatting.
+        farms:
+          type: array
+          items:
+            $ref: '#/components/schemas/Farm'
+      required:
+        - id
+        - producer_name
+        - cpf_cnpj
+    CreateProducer:
+      type: object
+      properties:
+        producer_name:
+          type: string
+        cpf_cnpj:
+          type: string
+          example: '123.456.789-09 or 12.345.678/0001-95'
+          description: A valid Brazilian CPF (11 digits) or CNPJ (14 digits), with or without formatting.
+      required:
+        - producer_name
+        - cpf_cnpj
+    UpdateProducer:
+      type: object
+      properties:
+        producer_name:
+          type: string
+        cpf_cnpj:
+          type: string
+          example: '123.456.789-09 or 12.345.678/0001-95'
+          description: A valid Brazilian CPF (11 digits) or CNPJ (14 digits), with or without formatting, if provided.
     Harvest:
       type: object
       properties:
@@ -342,6 +829,174 @@ components:
       type: object
       properties:
         crop_name:
+          type: string
+        Farm:
+      type: object
+      properties:
+        id:
+          type: string
+        farm_name:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        total_farm_area:
+          type: integer
+          example: 100
+          description: Total farm area in hectares, must be greater than or equal to arable_area and vegetation_area.
+        arable_area:
+          type: integer
+          example: 80
+          description: Arable area in hectares, must not exceed total_farm_area.
+        vegetation_area:
+          type: integer
+          example: 20
+          description: Vegetation area in hectares, must not exceed total_farm_area.
+        producer:
+          $ref: '#/components/schemas/Producer'
+        crops_harvests:
+          type: array
+          items:
+            $ref: '#/components/schemas/FarmCropHarvest'
+      required:
+        - id
+        - farm_name
+        - city
+        - state
+        - total_farm_area
+        - arable_area
+        - vegetation_area
+        - producer
+    Farm:
+      type: object
+      properties:
+        id:
+          type: string
+        farm_name:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        total_farm_area:
+          type: integer
+          example: 100
+          description: Total farm area in hectares, must be greater than or equal to arable_area and vegetation_area.
+        arable_area:
+          type: integer
+          example: 80
+          description: Arable area in hectares, must not exceed total_farm_area.
+        vegetation_area:
+          type: integer
+          example: 20
+          description: Vegetation area in hectares, must not exceed total_farm_area.
+        producer:
+          $ref: '#/components/schemas/Producer'
+        crops_harvests:
+          type: array
+          items:
+            $ref: '#/components/schemas/FarmCropHarvest'
+      required:
+        - id
+        - farm_name
+        - city
+        - state
+        - total_farm_area
+        - arable_area
+        - vegetation_area
+        - producer
+    CreateFarm:
+      type: object
+      properties:
+        farm_name:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        total_farm_area:
+          type: integer
+          example: 100
+          description: Total farm area in hectares, must be greater than or equal to arable_area and vegetation_area, and their sum.
+        arable_area:
+          type: integer
+          example: 80
+          description: Arable area in hectares, must not exceed total_farm_area and sum with vegetation_area must not exceed total_farm_area.
+        vegetation_area:
+          type: integer
+          example: 20
+          description: Vegetation area in hectares, must not exceed total_farm_area and sum with arable_area must not exceed total_farm_area.
+        producerId:
+          type: string
+      required:
+        - farm_name
+        - city
+        - state
+        - total_farm_area
+        - arable_area
+        - vegetation_area
+        - producerId
+    UpdateFarm:
+      type: object
+      properties:
+        farm_name:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        total_farm_area:
+          type: integer
+          example: 100
+          description: Total farm area in hectares. If provided, must be greater than or equal to arable_area and vegetation_area (provided or existing), and their sum.
+        arable_area:
+          type: integer
+          example: 80
+          description: Arable area in hectares. If provided, must not exceed total_farm_area (provided or existing), and sum with vegetation_area (provided or existing) must not exceed total_farm_area.
+        vegetation_area:
+          type: integer
+          example: 20
+          description: Vegetation area in hectares. If provided, must not exceed total_farm_area (provided or existing), and sum with arable_area (provided or existing) must not exceed total_farm_area.
+        producerId:
+          type: string
+    FarmCropHarvest:
+      type: object
+      properties:
+        id:
+          type: string
+        farm:
+          $ref: '#/components/schemas/Farm'
+        harvest:
+          $ref: '#/components/schemas/Harvest'
+        crop:
+          $ref: '#/components/schemas/Crop'
+      required:
+        - id
+        - farm
+        - harvest
+        - crop
+    CreateFarmCropHarvest:
+      type: object
+      properties:
+        farmId:
+          type: string
+        harvestId:
+          type: string
+        cropId:
+          type: string
+      required:
+        - farmId
+        - harvestId
+        - cropId
+    UpdateFarmCropHarvest:
+      type: object
+      properties:
+        farmId:
+          type: string
+        harvestId:
+          type: string
+        cropId:
           type: string
     ErrorResponse:
       type: object

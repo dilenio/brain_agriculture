@@ -24,27 +24,29 @@ export class FarmCropHarvestService {
   async create(
     createFarmCropHarvestDto: CreateFarmCropHarvestDto
   ): Promise<FarmCropHarvest> {
-    const { farm_id, harvest_id, crop_id } = createFarmCropHarvestDto;
+    const { farm, harvest, crop } = createFarmCropHarvestDto;
 
-    const farm = await this.farmRepository.findOneBy({ id: farm_id });
-    if (!farm) {
-      throw new NotFoundException(`Farm with ID ${farm_id} not found`);
+    const farmFound = await this.farmRepository.findOneBy({ id: farm });
+    if (!farmFound) {
+      throw new NotFoundException(`Farm with ID ${farm} not found`);
     }
 
-    const harvest = await this.harvestRepository.findOneBy({ id: harvest_id });
-    if (!harvest) {
-      throw new NotFoundException(`Harvest with ID ${harvest_id} not found`);
+    const harvestFound = await this.harvestRepository.findOneBy({
+      id: harvest,
+    });
+    if (!harvestFound) {
+      throw new NotFoundException(`Harvest with ID ${harvest} not found`);
     }
 
-    const crop = await this.cropRepository.findOneBy({ id: crop_id });
-    if (!crop) {
-      throw new NotFoundException(`Crop with ID ${crop_id} not found`);
+    const cropFound = await this.cropRepository.findOneBy({ id: crop });
+    if (!cropFound) {
+      throw new NotFoundException(`Crop with ID ${crop} not found`);
     }
 
     const farmCropHarvest = this.farmCropHarvestRepository.create({
-      farm,
-      harvest,
-      crop,
+      farm: farmFound,
+      harvest: harvestFound,
+      crop: cropFound,
     });
 
     return this.farmCropHarvestRepository.save(farmCropHarvest);
@@ -73,37 +75,37 @@ export class FarmCropHarvestService {
   ): Promise<FarmCropHarvest> {
     const farmCropHarvest = await this.findOne(id);
 
-    if (updateFarmCropHarvestDto.farm_id) {
+    if (updateFarmCropHarvestDto.farm) {
       const farm = await this.farmRepository.findOneBy({
-        id: updateFarmCropHarvestDto.farm_id,
+        id: updateFarmCropHarvestDto.farm,
       });
       if (!farm) {
         throw new NotFoundException(
-          `Farm with ID ${updateFarmCropHarvestDto.farm_id} not found`
+          `Farm with ID ${updateFarmCropHarvestDto.farm} not found`
         );
       }
       farmCropHarvest.farm = farm;
     }
 
-    if (updateFarmCropHarvestDto.harvest_id) {
+    if (updateFarmCropHarvestDto.harvest) {
       const harvest = await this.harvestRepository.findOneBy({
-        id: updateFarmCropHarvestDto.harvest_id,
+        id: updateFarmCropHarvestDto.harvest,
       });
       if (!harvest) {
         throw new NotFoundException(
-          `Harvest with ID ${updateFarmCropHarvestDto.harvest_id} not found`
+          `Harvest with ID ${updateFarmCropHarvestDto.harvest} not found`
         );
       }
       farmCropHarvest.harvest = harvest;
     }
 
-    if (updateFarmCropHarvestDto.crop_id) {
+    if (updateFarmCropHarvestDto.crop) {
       const crop = await this.cropRepository.findOneBy({
-        id: updateFarmCropHarvestDto.crop_id,
+        id: updateFarmCropHarvestDto.crop,
       });
       if (!crop) {
         throw new NotFoundException(
-          `Crop with ID ${updateFarmCropHarvestDto.crop_id} not found`
+          `Crop with ID ${updateFarmCropHarvestDto.crop} not found`
         );
       }
       farmCropHarvest.crop = crop;

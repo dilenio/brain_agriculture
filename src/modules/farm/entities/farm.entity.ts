@@ -19,6 +19,26 @@ export class Farm {
   @ApiProperty()
   farm_name!: string;
 
+  @Column()
+  @ApiProperty()
+  city!: string;
+
+  @Column()
+  @ApiProperty()
+  state!: string;
+
+  @Column({ type: 'integer' })
+  @ApiProperty({ example: 100 })
+  total_farm_area!: number;
+
+  @Column({ type: 'integer' })
+  @ApiProperty({ example: 80 })
+  arable_area!: number;
+
+  @Column({ type: 'integer' })
+  @ApiProperty({ example: 20.0 })
+  vegetation_area!: number;
+
   @ManyToOne(() => Producer, (producer) => producer.farms, {
     onDelete: 'CASCADE',
   })

@@ -12,8 +12,10 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Brain Agriculture API')
-    .setDescription('API for managing rural producers and their properties')
-    .setVersion('1.0')
+    .setDescription(
+      'API for managing producers, farms, harvests, crops, and their associations'
+    )
+    .setVersion('1.0.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
