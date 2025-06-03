@@ -109,10 +109,6 @@ Configure nas variáveis do serviço em um arquivo `.env` local seguindo modelo 
 
 Para rodar o container utilize: `docker-compose -f docker-compose.dev.yml up`
 
-## Seed
-
-Para alimentar o banco de dados com dados de exemplo utilize o comando `npm run seed`
-
 ## Testes
 
 Para rodar os testes utilize o comando:
