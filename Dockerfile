@@ -16,4 +16,4 @@ EXPOSE 3000
 ENV NODE_ENV=production
 ENV PORT=3000
 
-CMD ["sh", "-c", "ts-node src/database/seed.ts && node dist/main.js"]
+CMD ["sh", "-c", "node dist/main.js"]
