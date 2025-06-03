@@ -11,7 +11,6 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules 
 COPY --from=builder /app/package*.json ./ 
 COPY --from=builder /app/src/database ./src/database 
-COPY --from=builder /app/ormconfig.json .
 RUN npm install -g ts-node
 
 EXPOSE 3000
