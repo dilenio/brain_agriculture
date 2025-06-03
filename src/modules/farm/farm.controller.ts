@@ -14,8 +14,8 @@ import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { Farm } from './entities/farm.entity';
 import { ApiResponseDecorator } from '../../common/decorators/api-response.decorator';
 
-@ApiTags('farms')
-@Controller('farms')
+@ApiTags('fazendas')
+@Controller('fazendas')
 export class FarmController {
   constructor(private readonly farmService: FarmService) {}
 

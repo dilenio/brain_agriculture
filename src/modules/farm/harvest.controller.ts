@@ -14,8 +14,8 @@ import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { Harvest } from './entities/harvest.entity';
 import { ApiResponseDecorator } from '../../common/decorators/api-response.decorator';
 
-@ApiTags('harvests')
-@Controller('harvests')
+@ApiTags('safras')
+@Controller('safras')
 export class HarvestController {
   constructor(private readonly harvestService: HarvestService) {}
 

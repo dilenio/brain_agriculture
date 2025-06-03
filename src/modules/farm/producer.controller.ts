@@ -14,8 +14,8 @@ import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { Producer } from './entities/producer.entity';
 import { ApiResponseDecorator } from '../../common/decorators/api-response.decorator';
 
-@ApiTags('producers')
-@Controller('producers')
+@ApiTags('produtores')
+@Controller('produtores')
 export class ProducerController {
   constructor(private readonly producerService: ProducerService) {}
 

@@ -14,8 +14,8 @@ import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { Crop } from './entities/crop.entity';
 import { ApiResponseDecorator } from '../../common/decorators/api-response.decorator';
 
-@ApiTags('crops')
-@Controller('crops')
+@ApiTags('culturas')
+@Controller('culturas')
 export class CropController {
   constructor(private readonly cropService: CropService) {}
 

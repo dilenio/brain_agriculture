@@ -5,12 +5,8 @@ import { ValidationPipe } from '@nestjs/common';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 
 async function bootstrap() {
-  console.log('Environment:', process.env.NODE_ENV);
-  console.log('Database URL:', process.env.DATABASE_URL);
-  console.log('Database Public URL:', process.env.DATABASE_PUBLIC_URL);
-
   const app = await NestFactory.create(AppModule);
-
+  app.enableCors();
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.useGlobalFilters(new HttpExceptionFilter());
 
