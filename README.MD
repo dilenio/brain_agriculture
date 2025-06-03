@@ -1,12 +1,22 @@
-# API Brain Agriculture
+# 🚜 API Brain Agriculture
 
-## Visão Geral
+![Node.js](https://img.shields.io/badge/node-22.x-brightgreen)  
 
-A **API Brain Agriculture** é um serviço backend projetado para gerenciar dados agrícolas, incluindo produtores, fazendas, culturas e colheitas. Construída com tecnologias modernas, oferece uma solução robusta e escalável para rastreamento e análise de atividades agrícolas, com foco em usabilidade e manutenibilidade.
+## 🌱 Visão Geral
 
-## Arquitetura
+A **API Brain Agriculture** é uma aplicação backend desenvolvida para gerenciar dados do setor agrícola, incluindo produtores, fazendas, culturas e colheitas. Construída com **NestJS**, **PostgreSQL** e **TypeORM**, a API oferece uma estrutura escalável, segura e de fácil manutenção, com foco em rastreabilidade e análise de dados do campo.
 
-A API segue uma arquitetura modular e em camadas, utilizando **NestJS**, um framework progressivo para Node.js, combinado com **TypeORM** para operações no banco de dados e **PostgreSQL** como banco de dados relacional.
+---
+
+## 🏗️ Arquitetura
+
+- **Framework:** NestJS (com TypeScript e injeção de dependência)
+- **Banco de Dados:** PostgreSQL com TypeORM
+- **ORM:** TypeORM com suporte a UUIDs e migrações
+- **Infraestrutura:** Docker + Railway
+- **Documentação:** Swagger em `/api`
+
+---
 
 ## 🧩 Diagrama de Entidades (ERD)
 
@@ -52,64 +62,107 @@ erDiagram
   }
 ```
 
-### Componentes Principais
+## ⚙️ Principais Funcionalidades
 
-- **Framework**: NestJS
+- API RESTful para gerenciamento de produtores, fazendas, safras e culturas
+- Swagger com OpenAPI disponível em `/api`
+- Migrações com TypeORM para controle de schema
+- Suporte a SSL em ambientes de produção
+- Modularização por recursos (`Producer`, `Farm`, `Dashboard` etc.)
 
-  - Utiliza injeção de dependências, estrutura modular e TypeScript para facilitar a manutenção.
-  - Organizada em módulos (`Producer`, `Farm`, `Harvest`, `Crop`, `FarmCropHarvest`, `Dashboard`) para separação de responsabilidades.
-  - Expõe endpoints RESTful com documentação OpenAPI (Swagger) disponível em `/api`.
+---
 
-- **Banco de Dados**: PostgreSQL com TypeORM
+## 🚀 Implantação
 
-  - Gerencia entidades (`Producer`, `Farm`, `Harvest`, `Crop`, `FarmCropHarvest`) com UUIDs (via extensão `uuid-ossp`).
-  - Usa migrações para manter a consistência do esquema entre ambientes.
-  - Suporta seeding para popular dados iniciais (e.g., produtores e fazendas de exemplo).
-  - Configurado com SSL para conexões seguras em produção.
+### 🔗 Link de produção (Railway)
 
-- **Implantação**: Railway com Docker
-  - Implantada como uma aplicação conteinerizada usando um `Dockerfile` multiestágio (Node.js 22 Alpine).
-  - Hospedada na Railway, com uma instância gerenciada de PostgreSQL para persistência de dados.
-  - Variáveis de ambiente (e.g., `DATABASE_URL`) configuram conexões de banco de dados de forma segura.
-  - Migrações são executados automaticamente na inicialização do contêiner.
+> [https://brainagriculture-production.up.railway.app/api/](https://brainagriculture-production.up.railway.app/api/)
 
-### Fluxo de Dados
+### 🧰 Pré-requisitos
 
-1. Requisições HTTP chegam aos controladores do NestJS, que validam entradas e delegam às serviços.
-2. Os serviços interagem com repositórios TypeORM para realizar operações CRUD no PostgreSQL.
-3. O módulo `Dashboard` agrega dados para insights analíticos (e.g., métricas de fazendas e colheitas).
-4. Respostas são formatadas como JSON, seguindo o esquema OpenAPI.
+- Node.js v22
+- Docker e Docker Compose
 
-## Principais Funcionalidades
+---
 
-- **API REST**: Fornece endpoints para gerenciar entidades agrícolas (e.g., `/producers`, `/farms`, `/dashboard`).
-- **Documentação Swagger**: Documentação interativa da API em `/api` para desenvolvedores.
-- **Migrações de Banco de Dados**: Garante atualizações consistentes do esquema com migrações TypeORM.
-- **Seeding**: Popula dados iniciais para testes e desenvolvimento.
-- **Implantação Escalável**: Executa na Railway com escalabilidade automática e PostgreSQL gerenciado.
+## 🛠️ Instalação
 
-## Configuração e Implantação
+### Clonar o repositório
 
-### Link para onde está hospedada na Railway
+```bash
+git clone https://github.com/seu-usuario/brain-agriculture.git
+cd brain-agriculture
+```
 
-[brainagriculture-production.up.railway.app](https://brainagriculture-production.up.railway.app/api/)
+### Instalar dependências
 
-### Pré-requisitos
+```bash
+npm install
+```
 
-- Node.js 22
-- Docker
+### Arquivo `.env`
 
-### Variáveis de Ambiente
+Copie o arquivo `.env.example` e configure:
 
-Configure nas variáveis do serviço em um arquivo `.env` local seguindo modelo `.env.example`:
+```env
+DATABASE_URL=postgresql://usuario:senha@host:porta/banco
+```
 
-- DATABASE_URL=<endereço do banco de dados **PostgreSQL**>
+---
 
-## Docker
+## 🐳 Docker
 
-Para rodar o container utilize: `docker-compose -f docker-compose.dev.yml up`
+Para subir o ambiente com Docker:
 
-## Testes
+```bash
+docker-compose -f docker-compose.dev.yml up
+```
 
-Para rodar os testes utilize o comando:
-`npm run test`
+---
+
+## 🧪 Testes
+
+Executar todos os testes automatizados (Jest):
+
+```bash
+npm run test
+```
+
+---
+
+## ▶️ Execução Local
+
+```bash
+npm run start:dev
+```
+
+Acesse a documentação Swagger em:
+
+```
+http://localhost:3000/api
+```
+
+---
+
+## 💡 Exemplo de Endpoint
+
+```http
+GET /producers
+```
+
+**Resposta:**
+```json
+[
+  {
+    "id": 1,
+    "producer_name": "João da Silva",
+    "cpf_cnpj": "12345678900"
+  }
+]
+```
+
+---
+
+## 📄 Licença
+
+Dilenio Enderle.
